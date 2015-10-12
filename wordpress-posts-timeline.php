@@ -125,7 +125,7 @@ function tags_text($tags){
 function timeline_text($limit){
 	$str = get_the_content('', true, '');
 	$str = strip_tags($str);
-    if(stripos($str," ") && $limit>=0){
+    if(strlen($str) && $limit>=0){
     $ex_str = explode(" ",$str);
         if(count($ex_str)>$limit){
             for($i=0;$i<$limit;$i++){
