@@ -82,12 +82,12 @@ function display_timeline($args){
 					$out .=  '</h3></a>';
 	        	}
 	        	else{
-	            	$out .=  '<span><h4 class="timeline-date">';
+	            	$out .=  '<span><h3 class="timeline-date">';
 	            	$out .= get_the_time(apply_filters( 'timeline_date_format', get_option('timeline_date_format') ), $post->ID);
 					if( get_option('timeline_show_titles') == 'yes'){
 						$out .=  " ".get_the_title($post->ID)." ";
 					}
-					$out .=  '</h4><span>';
+					$out .=  '</h3><span>';
 	            }
 				if ( get_option('timeline_include_images') == 'yes' ){
 					if ( featured_image() == true && has_post_thumbnail( $post->ID ) ){
@@ -95,6 +95,7 @@ function display_timeline($args){
 					}
 				}
 				$out .=  '<span class="timeline-text">'.timeline_text(get_option('timeline_text_length')).'</span>';
+				$out .='<span class="timeline-text"><h6>'.tags_text(wp_get_post_tags($post->ID)).'</h6></span>';
 				$out .=  '</div></li>';
 
     	endforeach;
@@ -103,6 +104,21 @@ function display_timeline($args){
 		$out .=  '</div> <!-- #timeline -->';
 		wp_reset_postdata();
 		return $out;
+}
+
+//function to include the tags of the post 
+function tags_text($tags){
+	$tag_output ="";
+	if(!empty($tags)){
+		$tag_output .="Tags : ";
+		foreach ($tags as $tag) {	
+		$tag_output .=$tag->name.", ";
+		}
+		//Remove the last comma
+		$tag_output=substr($tag_output,0,(strlen($tag_output)-2));
+	}
+	return $tag_output;
+
 }
 
 //trim text function found on http://www.jooria.com/Limit-Characters-From-Your-Text-a139.html
