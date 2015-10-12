@@ -72,21 +72,22 @@ function display_timeline($args){
 
 	        $out .=  '<li><div>';
 	        	if( get_option('timeline_post_link') == 'yes'){
-	        		$out .=  '<a href="' . get_permalink($post->ID) . '" title="'.$post->title.'">';
-	        		$out .=  '<h3 class="timeline-date">';
+	        		$out .=  '<span><h4 class="timeline-date">';
 					$out .=  get_the_time(get_option('timeline_date_format'), $post->ID);
+					$out .=  '</h4></span>';
+					$out .=  '<a href="' . get_permalink($post->ID) . '" title="'.$post->title.'"><h3 class="timeline-date">';
 					if( get_option('timeline_show_titles') == 'yes'){
 						$out .=  " ".get_the_title($post->ID)." ";
 					}
 					$out .=  '</h3></a>';
 	        	}
 	        	else{
-	            	$out .=  '<h3 class="timeline-date">';
+	            	$out .=  '<span><h4 class="timeline-date">';
 	            	$out .= get_the_time(apply_filters( 'timeline_date_format', get_option('timeline_date_format') ), $post->ID);
 					if( get_option('timeline_show_titles') == 'yes'){
 						$out .=  " ".get_the_title($post->ID)." ";
 					}
-					$out .=  '</h3>';
+					$out .=  '</h4><span>';
 	            }
 				if ( get_option('timeline_include_images') == 'yes' ){
 					if ( featured_image() == true && has_post_thumbnail( $post->ID ) ){
